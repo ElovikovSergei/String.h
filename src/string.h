@@ -1,5 +1,5 @@
-#ifndef SRC_S21_STRING_H_
-#define SRC_S21_STRING_H_
+#ifndef SRC_STRING_H_
+#define SRC_STRING_H_
 
 #include <errno.h>
 #include <math.h>
@@ -7,39 +7,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef unsigned long s21_size_t;
+typedef unsigned long size_t;
 
-void* s21_memchr(const void* str, int c, s21_size_t n);
-void* s21_memmove(void* dest, const void* src, s21_size_t n);
-void* s21_memcpy(void* dest, const void* src, s21_size_t n);
-void* s21_memset(void* str, int c, s21_size_t n);
-int s21_memcmp(const void* str1, const void* str2, s21_size_t n);
-int s21_strcmp(const char* str1, const char* str2);
-int s21_strncmp(const char* str1, const char* str2, s21_size_t n);
-char* s21_strcpy(char* dest, const char* src);
-char* s21_strncpy(char* dest, const char* src, s21_size_t n);
-char* s21_strcat(char* dest, const char* src);
-char* s21_strncat(char* dest, const char* src, s21_size_t n);
-char* s21_strchr(const char* str, int number);
-char* s21_strrchr(const char* str, int number);
-char* s21_strpbrk(const char* str1, const char* str2);
+void* memchr(const void* str, int c, size_t n);
+void* memmove(void* dest, const void* src, size_t n);
+void* memcpy(void* dest, const void* src, size_t n);
+void* memset(void* str, int c, size_t n);
+int memcmp(const void* str1, const void* str2, size_t n);
+int strcmp(const char* str1, const char* str2);
+int strncmp(const char* str1, const char* str2, size_t n);
+char* strcpy(char* dest, const char* src);
+char* strncpy(char* dest, const char* src, size_t n);
+char* strcat(char* dest, const char* src);
+char* strncat(char* dest, const char* src, size_t n);
+char* strchr(const char* str, int number);
+char* strrchr(const char* str, int number);
+char* strpbrk(const char* str1, const char* str2);
 int is_delim(char c, const char* delim);
-char* s21_strtok(char* str, const char* delim);
-char* s21_strerror(const int errorNum);
-char* s21_strstr(const char* str1, const char* str2);
-s21_size_t s21_strlen(const char* str);
-s21_size_t s21_strspn(const char* str1, const char* str2);
-s21_size_t s21_strcspn(const char* str1, const char* str2);
-void* s21_to_upper(const char* str);
-void* s21_to_lower(const char* str);
-void* s21_insert(const char* src, const char* str, s21_size_t start_index);
-void* s21_trim(const char* src, const char* trim_chars);
+char* strtok(char* str, const char* delim);
+char* strerror(const int errorNum);
+char* strstr(const char* str1, const char* str2);
+size_t strlen(const char* str);
+size_t strspn(const char* str1, const char* str2);
+size_t strcspn(const char* str1, const char* str2);
+void* to_upper(const char* str);
+void* to_lower(const char* str);
+void* insert(const char* src, const char* str, size_t start_index);
+void* trim(const char* src, const char* trim_chars);
 
 void fill(char* str, va_list* string, int* i);
 int numb(const char* str);
 int length(const char* str);
 int number(const char* str, int* i);
-int s21_sscanf(const char* str, const char* format, ...);
+int sscanf(const char* str, const char* format, ...);
 int read(const char* str, int* j, va_list* string, int* counter);
 int read_n(int coun, va_list* string);
 int read_s(const char* str, int* j, va_list* string, int* counter);
@@ -107,9 +107,9 @@ int pread_c(char* str, int* j, va_list* string);
 int pread_c_pr(char* str, int* j);
 int hex_len(const char* str, const int* i);
 int oct_len(const char* str, const int* i);
-int s21_sprintf(char* str, const char* format, ...);
+int sprintf(char* str, const char* format, ...);
 int hex(const char* str);
 int oct(const char* str);
 int flag(const char* str);
 
-#endif  // SRC_S21_STRING_H_
+#endif  // SRC_STRING_H_

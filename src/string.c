@@ -1,4 +1,4 @@
-#include "s21_string.h"
+#include "string.h"
 #if defined(__linux__)
 #define ARRERROR                                                               \
   {                                                                            \
@@ -127,7 +127,7 @@ struct specifiers {
   char spec;
 } specifiers;
 
-void* s21_memchr(const void* str, int c, size_t n) {
+void* memchr(const void* str, int c, size_t n) {
   int k = -1;
   char* str1;
   for (int i = 0; i < (int)n; ++i)
@@ -139,7 +139,7 @@ void* s21_memchr(const void* str, int c, size_t n) {
   return str1;
 }
 
-void* s21_memmove(void* dest, const void* src, s21_size_t n) {
+void* memmove(void* dest, const void* src, size_t n) {
   char r[1000];
 
   for (int i = 0; i < (int)n; ++i) r[i] = *((char*)src + i);
@@ -148,17 +148,17 @@ void* s21_memmove(void* dest, const void* src, s21_size_t n) {
   return (char*)dest;
 }
 
-void* s21_memcpy(void* dest, const void* src, s21_size_t n) {
+void* memcpy(void* dest, const void* src, size_t n) {
   for (int i = 0; i < (int)n; ++i) *((char*)dest + i) = *((char*)src + i);
   return (char*)dest;
 }
 
-void* s21_memset(void* str, int c, s21_size_t n) {
+void* memset(void* str, int c, size_t n) {
   for (int i = 0; i < (int)n; ++i) *((char*)str + i) = c;
   return (char*)str;
 }
 
-int s21_memcmp(const void* str1, const void* str2, s21_size_t n) {
+int memcmp(const void* str1, const void* str2, size_t n) {
   if ((int)n == 0) return 0;
   while (--n && *(char*)str1 == *(char*)str2) {
     str1 = (char*)str1 + 1;
@@ -167,21 +167,21 @@ int s21_memcmp(const void* str1, const void* str2, s21_size_t n) {
   return (*(char*)str1) - (*(char*)str2);
 }
 
-int s21_strcmp(const char* str1, const char* str2) {
-  s21_size_t lenStr1 = s21_strlen(str1);
-  s21_size_t i;
+int strcmp(const char* str1, const char* str2) {
+  size_t lenStr1 = strlen(str1);
+  size_t i;
   for (i = 0; i < lenStr1; i++)
     if (str1[i] != str2[i]) break;
   return str1[i] - str2[i];
 }
-int s21_strncmp(const char* str1, const char* str2, s21_size_t n) {
-  s21_size_t i;
+int strncmp(const char* str1, const char* str2, size_t n) {
+  size_t i;
   for (i = 0; i < n - 1; i++)
     if (str1[i] != str2[i]) break;
   return str1[i] - str2[i];
 }
 
-char* s21_strcpy(char* dest, const char* src) {
+char* strcpy(char* dest, const char* src) {
   char* startDest = dest;
 
   while ((*dest++ = *src++) != '\0') {
@@ -190,7 +190,7 @@ char* s21_strcpy(char* dest, const char* src) {
   return startDest;
 }
 
-char* s21_strncpy(char* dest, const char* src, s21_size_t n) {
+char* strncpy(char* dest, const char* src, size_t n) {
   int iter = 0;
   char* startDest = dest;
 
@@ -200,9 +200,9 @@ char* s21_strncpy(char* dest, const char* src, s21_size_t n) {
   return startDest;
 }
 
-char* s21_strcat(char* dest, const char* src) {
+char* strcat(char* dest, const char* src) {
   char* startDest = dest;
-  int lenDest = s21_strlen(dest);
+  int lenDest = strlen(dest);
   int iter = 0;
 
   while ((*(dest + lenDest + iter++) = *src++) && (*src != '\0')) {
@@ -211,9 +211,9 @@ char* s21_strcat(char* dest, const char* src) {
   return startDest;
 }
 
-char* s21_strncat(char* dest, const char* src, s21_size_t n) {
+char* strncat(char* dest, const char* src, size_t n) {
   char* startDest = dest;
-  int lenDest = s21_strlen(dest);
+  int lenDest = strlen(dest);
   int iter = 0, iter2 = 0;
 
   while (1) {
@@ -226,8 +226,8 @@ char* s21_strncat(char* dest, const char* src, s21_size_t n) {
   return startDest;
 }
 
-char* s21_strchr(const char* str, int number) {
-  int lenStr = s21_strlen(str) + 1;
+char* strchr(const char* str, int number) {
+  int lenStr = strlen(str) + 1;
   int iter = 0;
   char* symbol = NULL;
 
@@ -243,8 +243,8 @@ char* s21_strchr(const char* str, int number) {
   return symbol;
 }
 
-char* s21_strrchr(const char* str, int number) {
-  int lenStr = s21_strlen(str) + 1;
+char* strrchr(const char* str, int number) {
+  int lenStr = strlen(str) + 1;
   char* symbol = NULL;
 
   for (int i = 0; i < lenStr; i++) {
@@ -253,9 +253,9 @@ char* s21_strrchr(const char* str, int number) {
   return symbol;
 }
 
-char* s21_strpbrk(const char* str1, const char* str2) {
-  int lenStr1 = s21_strlen(str1);
-  int lenStr2 = s21_strlen(str2);
+char* strpbrk(const char* str1, const char* str2) {
+  int lenStr1 = strlen(str1);
+  int lenStr2 = strlen(str2);
   char* symbol = NULL;
 
   for (int i = 0; i < lenStr1; i++) {
@@ -276,7 +276,7 @@ int is_delim(char c, const char* delim) {
   return 0;
 }
 
-char* s21_strtok(char* s, const char* delim) {
+char* strtok(char* s, const char* delim) {
   static char* p;
   if (!s) {
     s = p;
@@ -311,7 +311,7 @@ char* s21_strtok(char* s, const char* delim) {
   }
 }
 
-char* s21_strerror(int errnum) {
+char* strerror(int errnum) {
   char* result[] = ARRERROR;
   char* resnum = (char*)calloc(70, sizeof(char));
   int max;
@@ -321,14 +321,14 @@ char* s21_strerror(int errnum) {
   else
     max = 133;
   if (errnum > 0 && errnum <= max) {
-    s21_strcpy(resnum, result[errnum]);
+    strcpy(resnum, result[errnum]);
   } else {
     char num[10] = {0};
     if (errnum < 0) {
       num[0] = '-';
       errnum *= -1;
     }
-    s21_strcpy(resnum, "Unknown error: ");
+    strcpy(resnum, "Unknown error: ");
     int i;
     for (i = 8; errnum != 0; errnum /= 10, i--) {
       num[i] = errnum % 10 + '0';
@@ -337,14 +337,14 @@ char* s21_strerror(int errnum) {
       resnum[15] = '-';
     }
 
-    s21_strcat(resnum, num + i + 1);
+    strcat(resnum, num + i + 1);
   }
   return resnum;
 }
 
-char* s21_strstr(const char* str1, const char* str2) {
-  int lenStr1 = s21_strlen(str1);
-  int lenStr2 = s21_strlen(str2);
+char* strstr(const char* str1, const char* str2) {
+  int lenStr1 = strlen(str1);
+  int lenStr2 = strlen(str2);
   char* symbol = NULL;
 
   if (lenStr2 != 0) {
@@ -368,7 +368,7 @@ char* s21_strstr(const char* str1, const char* str2) {
   return symbol;
 }
 
-s21_size_t s21_strlen(const char* str) {
+size_t strlen(const char* str) {
   int len = 0;
 
   for (int i = 0; *(str + i) != '\0'; i++) len++;
@@ -376,8 +376,8 @@ s21_size_t s21_strlen(const char* str) {
   return len;
 }
 
-s21_size_t s21_strspn(const char* str1, const char* str2) {
-  s21_size_t n;
+size_t strspn(const char* str1, const char* str2) {
+  size_t n;
   const char* p;
 
   for (n = 0; *str1; str1++, n++) {
@@ -388,8 +388,8 @@ s21_size_t s21_strspn(const char* str1, const char* str2) {
   return n;
 }
 
-s21_size_t s21_strcspn(const char* str1, const char* str2) {
-  s21_size_t n;
+size_t strcspn(const char* str1, const char* str2) {
+  size_t n;
   int flage = 0;
   const char* p;
 
@@ -405,8 +405,8 @@ s21_size_t s21_strcspn(const char* str1, const char* str2) {
   return n;
 }
 
-void* s21_to_upper(const char* str) {
-  int lenStr = s21_strlen(str);
+void* to_upper(const char* str) {
+  int lenStr = strlen(str);
   int i = 0;
   char* string;
 
@@ -421,8 +421,8 @@ void* s21_to_upper(const char* str) {
   return lenStr != 0 ? string : NULL;
 }
 
-void* s21_to_lower(const char* str) {
-  int lenStr = s21_strlen(str);
+void* to_lower(const char* str) {
+  int lenStr = strlen(str);
   int i = 0;
   char* string;
 
@@ -437,10 +437,10 @@ void* s21_to_lower(const char* str) {
   return string;
 }
 
-void* s21_insert(const char* src, const char* str, s21_size_t start_index) {
+void* insert(const char* src, const char* str, size_t start_index) {
   char* len;
   int flage = -1;
-  s21_size_t lenSrc;
+  size_t lenSrc;
 
   if (src == NULL || str == NULL) {
     len = NULL;
@@ -448,7 +448,7 @@ void* s21_insert(const char* src, const char* str, s21_size_t start_index) {
   }
 
   if (flage == -1) {
-    lenSrc = s21_strlen(src);
+    lenSrc = strlen(src);
     if (lenSrc < start_index) {
       len = NULL;
       flage = 1;
@@ -456,11 +456,11 @@ void* s21_insert(const char* src, const char* str, s21_size_t start_index) {
   }
 
   char* result = NULL;
-  s21_size_t allStrLen = 0;
+  size_t allStrLen = 0;
 
   if (flage == -1) {
-    s21_size_t lenStr;
-    lenStr = s21_strlen(str);
+    size_t lenStr;
+    lenStr = strlen(str);
     allStrLen = lenSrc + lenStr;
 
     result = (char*)calloc((lenSrc + lenStr), sizeof(char));
@@ -469,7 +469,7 @@ void* s21_insert(const char* src, const char* str, s21_size_t start_index) {
       result[i] = src[i];
     }
 
-    s21_strcat(result, str);
+    strcat(result, str);
 
     for (int i = 0; i + start_index + lenStr < lenSrc + lenStr; i++) {
       result[i + start_index + lenStr] = src[i + start_index];
@@ -478,22 +478,22 @@ void* s21_insert(const char* src, const char* str, s21_size_t start_index) {
   return allStrLen != 0 || len != NULL ? result : NULL;
 }
 
-void* s21_trim(const char* src, const char* trim_chars) {
-  if (trim_chars == NULL || s21_strlen(trim_chars) == 0) trim_chars = " ";
+void* trim(const char* src, const char* trim_chars) {
+  if (trim_chars == NULL || strlen(trim_chars) == 0) trim_chars = " ";
 
   int flage = 0;
 
   if (src == NULL) flage = 1;
 
-  s21_size_t lenSrc = 0;
+  size_t lenSrc = 0;
   char* string;
   char* srt = NULL;
 
   if (flage == 0) {
     int start_index = 0, end_index = 0, new_index = 0;
-    s21_size_t lenTrim = 0;
-    lenSrc = s21_strlen(src);
-    lenTrim = s21_strlen(trim_chars);
+    size_t lenTrim = 0;
+    lenSrc = strlen(src);
+    lenTrim = strlen(trim_chars);
 
     string = (char*)src;
 
@@ -1007,7 +1007,7 @@ int number(const char* str, int* i) {
   return res;
 }
 
-int s21_sscanf(const char* str, const char* format, ...) {
+int sscanf(const char* str, const char* format, ...) {
   va_list string;
   int counte = 0, c = 0;
   int j = 0;
@@ -1132,7 +1132,7 @@ int pread_s(char* str, int* j, va_list* string) {
 int pread_x_o(char* str, int* j, long res, int base) {
   char copy[256], copy1[256];
   ltoaa(res, copy, base);
-  int len = s21_strlen(copy), l = 0;
+  int len = strlen(copy), l = 0;
   if (len >= specifiers.acc && res != 0) {
     pcopy_str(copy1, &l, copy);
   } else {
@@ -1569,7 +1569,7 @@ int flag(const char* str) {
           *str == '0');
 }
 
-int s21_sprintf(char* str, const char* format, ...) {
+int sprintf(char* str, const char* format, ...) {
   va_list string;
   int counte = 0;
   int j = 0;
